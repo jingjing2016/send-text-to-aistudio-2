@@ -1,0 +1,43 @@
+{
+  "manifest_version": 3,
+  "name": "Send Text to Background Tab",
+  "version": "1.0",
+  "description": "Sends text to an input field on a specific background tab.",
+  "permissions": [
+    "tabs",
+    "scripting",
+    "storage",
+    "notifications"
+  ],
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+  "host_permissions": [
+    "*://*/*"
+  ],
+  "optional_host_permissions": [],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content.js"
+      ]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "icon.png"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ]
+}
