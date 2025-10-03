@@ -12,6 +12,8 @@ const offsetXSlider = document.getElementById('offsetX');
 const offsetYSlider = document.getElementById('offsetY');
 const offsetXValueSpan = document.getElementById('offsetXValue');
 const offsetYValueSpan = document.getElementById('offsetYValue');
+// Hotkey
+const clipboardHotkeySpan = document.getElementById('clipboard-hotkey');
 
 // --- Default Settings ---
 const DEFAULTS = {
@@ -65,6 +67,16 @@ function restoreOptions() {
         offsetYSlider.value = settings.position.offsetY;
 
         updateSliderValues();
+    });
+
+    // Restore Hotkey
+    chrome.commands.getAll((commands) => {
+        const command = commands.find(c => c.name === 'send_clipboard_content');
+        if (command && command.shortcut) {
+            clipboardHotkeySpan.textContent = command.shortcut;
+        } else {
+            clipboardHotkeySpan.textContent = 'Not set';
+        }
     });
 }
 

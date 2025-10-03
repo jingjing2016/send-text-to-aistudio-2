@@ -7,7 +7,9 @@
     "tabs",
     "scripting",
     "storage",
-    "notifications"
+    "notifications",
+    "clipboardRead",
+    "offscreen"
   ],
   "options_ui": {
     "page": "options.html",
@@ -39,5 +41,13 @@
         "<all_urls>"
       ]
     }
-  ]
+  ],
+  "commands": {
+    "send_clipboard_content": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+Y"
+      },
+      "description": "Send the current clipboard content to the target tab"
+    }
+  }
 }
