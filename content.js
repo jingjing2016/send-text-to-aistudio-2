@@ -104,12 +104,25 @@ document.addEventListener('mouseup', (e) => {
 // Left-click sends to background
 icon.addEventListener('click', () => {
     if (currentSelection) {
-        chrome.runtime.sendMessage({
-            action: "sendText",
-            text: currentSelection,
-            sendInForeground: false // Explicitly send in background
+        // --- Copy to Clipboard ---
+        navigator.clipboard.writeText(currentSelection).then(() => {
+            // --- Send to Background ---
+            chrome.runtime.sendMessage({
+                action: "sendText",
+                text: currentSelection,
+                sendInForeground: false // Explicitly send in background
+            });
+            hideIcon();
+        }).catch(err => {
+            console.error('Could not copy text: ', err);
+            // Still send text even if copying fails
+            chrome.runtime.sendMessage({
+                action: "sendText",
+                text: currentSelection,
+                sendInForeground: false
+            });
+            hideIcon();
         });
-        hideIcon();
     }
 });
 
